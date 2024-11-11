@@ -217,6 +217,7 @@ def create_khach_hang_tab(notebook, app):
     
     search_value = StringVar()
 
+    
     search_entry = ttk.Entry(frame_khach_hang, bootstyle="superhero", width=30, textvariable=search_value)
     search_entry.insert(0, "Tìm kiếm theo tên khách hàng")
     search_entry.config(foreground="grey")
@@ -225,7 +226,7 @@ def create_khach_hang_tab(notebook, app):
     def on_focus_in(event):
         if  search_entry.get() == "Tìm kiếm theo tên khách hàng":
             search_entry.delete(0, "end")  # Clear the placeholder text
-            search_entry.config(foreground="black")
+            search_entry.config(foreground="white")
 
     def on_focus_out(event):
         if search_entry.get() == "":  # If empty, reset placeholder

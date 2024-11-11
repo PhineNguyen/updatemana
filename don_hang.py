@@ -6,6 +6,7 @@ from PIL import Image, ImageTk
 from tkinter import StringVar
 import csv
 from setting import load_settings  # Import thêm load_settings
+import tkinter as tk
 
 
 # Sample data
@@ -112,13 +113,25 @@ def create_don_hang_tab(notebook, app):
     # Tạo ô nhập (Entry) để tìm kiếm đơn hàng
     search_entry = ttk.Entry(frame_order, bootstyle="superhero", width=30, textvariable=search_value)
     search_entry.insert(0, "Tìm kiếm theo sản phẩm")  # Văn bản mặc định trong ô tìm kiếm
-    search_entry.grid(row=0, column=0, padx=5, pady=5, sticky=W)
+    search_entry.config(foreground="grey")
+    search_entry.grid(row=0, column=0, padx=5, pady=5, sticky=tk.W)
     
-    # Sự kiện khi nhấn vào ô tìm kiếm sẽ xóa văn bản mặc định
-    search_entry.bind("<FocusIn>", lambda event: search_entry.delete(0, 'end') if search_entry.get() == "Tìm kiếm theo sản phẩm" else None)
-    # Sự kiện nhấn Enter để thực hiện tìm kiếm
-    search_entry.bind("<Return>", lambda event: button_click("Tìm kiếm", app))  # Kích hoạt tìm kiếm khi nhấn Enter
+    def on_focus_in(event):
+        if  search_entry.get() == "Tìm kiếm theo sản phẩm":
+            search_entry.delete(0, "end")  # Clear the placeholder text
+            search_entry.config(foreground="white")
 
+    def on_focus_out(event):
+        if search_entry.get() == "":  # If empty, reset placeholder
+            search_entry.insert(0, "Tìm kiếm theo sản phẩm")
+            search_entry.config(foreground="grey")
+
+    # Bind focus events to the entry widget
+    search_entry.bind("<FocusIn>", on_focus_in)
+    search_entry.bind("<FocusOut>", on_focus_out)
+
+    notebook.after(100, lambda: search_entry.focus_set())  # Set focus after window is initialized
+    # Bind Enter key to perform the search
     # Tạo nút Tìm kiếm với icon và liên kết hàm button_click khi nhấn
     search_button = ttk.Button(frame_order, text="Tìm kiếm", bootstyle="superhero", image=search_icon, compound=LEFT, cursor="hand2", command=lambda: button_click("Tìm kiếm", app))
     search_button.grid(row=0, column=1, padx=5, pady=5, sticky=W)

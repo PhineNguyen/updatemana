@@ -75,7 +75,7 @@ def create_san_pham_tab(notebook, app):
     def on_focus_in(event):
         if product_search_entry.get() == "Tìm kiếm theo tên sản phẩm":
             product_search_entry.delete(0, "end")  # Clear the placeholder text
-            product_search_entry.config(foreground="black")
+            product_search_entry.config(foreground="white")
 
     def on_focus_out(event):
         if product_search_entry.get() == "":  # If empty, reset placeholder

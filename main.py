@@ -236,8 +236,8 @@ def main():
     create_san_pham_tab(notebook_top, app)
     create_don_hang_tab(notebook_top, app)
     create_khach_hang_tab(notebook_top, app)
-    create_thong_ke_tab(notebook_right1, app)
-    create_setting_tab(notebook_right, app,create_san_pham_tab, create_don_hang_tab, create_khach_hang_tab, create_thong_ke_tab,create_setting_tab)  # Thêm tab Setting
+    create_thong_ke_tab(notebook_top, app)
+    create_setting_tab(notebook_top, app,create_san_pham_tab, create_don_hang_tab, create_khach_hang_tab, create_thong_ke_tab,create_setting_tab)  # Thêm tab Setting
 
     #bật tắt trang login
     #create_login_frame(app, notebook, notebook_right, notebook_right1)
@@ -253,12 +253,13 @@ def main():
     notebook_top.bind("<<NotebookTabChanged>>", on_tab_changed)
     notebook_bottom.bind("<<NotebookTabChanged>>", on_tab_changed)
     notebook_right.bind("<<NotebookTabChanged>>", on_tab_changed)
-    notebook_right1.bind("<<NotebookTabChanged>>", on_tab_changed)
+    notebook_right1.bind("<<NotebookTabChanged>>", on_tab_changed) 
 
     # Liên kết sự kiện double-click với các notebook
     notebook_top.bind("<Button-1>", lambda event: on_tab_double_click(event, notebook_bottom,app))
     notebook_bottom.bind("<Button-1>", lambda event: on_tab_double_click2(event, notebook_top,app))
-
+    notebook.bind("<Button-1>", on_tab_changed)
+    
     notebook.pack_forget
 
     # Chạy ứng dụng
